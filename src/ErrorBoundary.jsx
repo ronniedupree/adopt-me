@@ -16,7 +16,8 @@ class ErrorBoundary extends Component {
     if (this.state.hasError) {
       return (
         <h2>
-          There was an error with this listening. <Link to="/">Click here to go back to the homepage</Link>
+          There was an error with this listening.{" "}
+          <Link to="/">Click here to go back to the homepage</Link>
         </h2>
       );
     }
