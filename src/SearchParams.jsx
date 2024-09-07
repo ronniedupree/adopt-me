@@ -41,7 +41,12 @@ const SearchParams = () => {
         ) : null}
         <label htmlFor="location">
           Location
-          <input name="location" id="location" placeholder="Location" />
+          <input
+            type="text"
+            name="location"
+            id="location"
+            placeholder="Location"
+          />
         </label>
 
         <label htmlFor="animal">
