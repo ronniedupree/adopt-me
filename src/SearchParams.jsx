@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Results from "./Results";
+import AdoptedPetContext from "./AdoptedPetContext";
 import useBreedList from "./useBreedList";
 import fetchSearch from "./fetchSearch";
-
 const ANIMALS = ["bird", "cat", "dog", "rabbit", "reptile"];
 
 const SearchParams = () => {
@@ -12,6 +12,7 @@ const SearchParams = () => {
     animal: "",
     breed: "",
   });
+  const [adoptedPet] = useContext(AdoptedPetContext);
   const [animal, setAnimal] = useState("");
   const [breeds] = useBreedList(animal);
 
@@ -32,40 +33,51 @@ const SearchParams = () => {
           setRequestParams(obj);
         }}
       >
+        {adoptedPet ? (
+          <div className="pet image-container">
+            <img src={adoptedPet.images[0]} alt={adoptedPet.name} />
+          </div>
+        ) : null}
         <label htmlFor="location">
           Location
-          <input name="location" id="location" placeholder="Location" />
+          <input id="location" name="location" placeholder="Location" />
         </label>
 
         <label htmlFor="animal">
           Animal
           <select
+            id="animal"
+            name="animal"
             onChange={(e) => {
               setAnimal(e.target.value);
             }}
-            id="animal"
-            value={animal}
+            onBlur={(e) => {
+              setAnimal(e.target.value);
+            }}
           >
             <option />
             {ANIMALS.map((animal) => (
-              <option key={animal}>{animal}</option>
+              <option key={animal} value={animal}>
+                {animal}
+              </option>
             ))}
           </select>
         </label>
 
         <label htmlFor="breed">
           Breed
-          <select id="breed" name="breed" disabled={breeds.length === 0}>
+          <select disabled={!breeds.length} id="breed" name="breed">
             <option />
             {breeds.map((breed) => (
-              <option key={breed}>{breed}</option>
+              <option key={breed} value={breed}>
+                {breed}
+              </option>
             ))}
           </select>
         </label>
 
         <button>Submit</button>
       </form>
-
       <Results pets={pets} />
     </div>
   );
