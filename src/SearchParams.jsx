@@ -24,12 +24,12 @@ const SearchParams = () => {
         onSubmit={(e) => {
           e.preventDefault();
           const formData = new FormData(e.target);
-          const object = {
+          const obj = {
             animal: formData.get("animal") ?? "",
             breed: formData.get("breed") ?? "",
             location: formData.get("location") ?? "",
           };
-          setRequestParams(object);
+          setRequestParams(obj);
         }}
       >
         <label htmlFor="location">
@@ -40,11 +40,11 @@ const SearchParams = () => {
         <label htmlFor="animal">
           Animal
           <select
-            id="animal"
-            value={animal}
             onChange={(e) => {
               setAnimal(e.target.value);
             }}
+            id="animal"
+            value={animal}
           >
             <option />
             {ANIMALS.map((animal) => (
@@ -55,7 +55,7 @@ const SearchParams = () => {
 
         <label htmlFor="breed">
           Breed
-          <select id="breed" disabled={breeds.length === 0} name="breed">
+          <select id="breed" name="breed" disabled={breeds.length === 0}>
             <option />
             {breeds.map((breed) => (
               <option key={breed}>{breed}</option>
@@ -65,6 +65,7 @@ const SearchParams = () => {
 
         <button>Submit</button>
       </form>
+
       <Results pets={pets} />
     </div>
   );
