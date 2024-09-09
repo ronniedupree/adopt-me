@@ -5,6 +5,7 @@ import { useState } from "react";
 import AdoptedPetContext from "./AdoptedPetContext";
 import Details from "./Details";
 import SearchParams from "./SearchParams";
+import { IPet } from "./APIResponsesTypes";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,7 +17,7 @@ const queryClient = new QueryClient({
 });
 
 const App = () => {
-  const adoptedPet = useState(null);
+  const adoptedPet = useState(null as IPet | null);
   return (
     <div>
       <BrowserRouter>
@@ -37,5 +38,7 @@ const App = () => {
 };
 
 const container = document.getElementById("root");
+if (!container) throw Error("no container to render to");
+
 const root = createRoot(container);
 root.render(<App />);

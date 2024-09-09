@@ -1,6 +1,7 @@
 import Pet from "./Pet";
+import { IPet } from "./APIResponsesTypes";
 
-const Results = ({ pets }) => {
+const Results = ({ pets }: { pets: IPet[] }) => {
   return (
     <div className="search">
       {!pets.length ? (
